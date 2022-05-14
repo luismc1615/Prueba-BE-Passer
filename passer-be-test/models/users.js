@@ -27,7 +27,7 @@ const updateUser = (pk_user, name, status) => {
 
     try {
         let user = postgresql.public.one(`update users set name ='${name}', status =${status} 
-                                          WHERE pk_user= ${pk_user}`);
+                                          WHERE pk_user= ${pk_user} returning *;`);
         return user
     }
     catch (e) {
