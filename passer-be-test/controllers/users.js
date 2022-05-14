@@ -13,7 +13,8 @@ const getUser = async (req, res, next) => {
 }
 
 const createUser = async (req, res, next) => {
-    const { pk_user, name } = req.body
+    const { pk_user, name } = req.query
+    console.log(req);
     try {
         let user = users.createUser(pk_user, name)
         res.status(200).send(user)
@@ -24,7 +25,21 @@ const createUser = async (req, res, next) => {
     }
 }
 
+const updateUser = async (req, res, next) => {
+    const { pk_user } = req.params
+    const { name, status } = req.query
+    try {
+        let user = users.updateUser(pk_user, name, status)
+        res.status(200).send(user)
+        next()
+    } catch (e) {
+        console.log(e.message)
+        res.sendStatus(500) && next(e)
+    }
+}
+
 module.exports = {
     getUser,
-    createUser
+    createUser,
+    updateUser
 }
