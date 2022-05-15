@@ -11,5 +11,6 @@ router.get('/users/:pk_user', users.getUser)
     .post('/transaction/', transaction.createTransaction)
     .get('/transaction/:pk_transaction', transaction.getTransaction)
     .put('/transaction/:pk_transaction', transaction.updateTransaction)
+    .get('/transaction/fk_user/:fk_user', transaction.getTransactionByfkUser)
 
 module.exports = router

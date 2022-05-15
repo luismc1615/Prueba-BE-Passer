@@ -54,9 +54,26 @@ const { postgresql } = require('../databases/postgresql')
     }
 }
 
+/**
+ * Get transactions for a specific user
+ * @param {number} fk_user Transaction fk users
+ * @returns {[{pk_transaction: 1, fk_user: 123, description: "Descripción de la transacción", amount: 456}]} transaction schema
+ */
+ const getTransactionByfkUser = (fk_user) => {
+    try {
+        let transaction = postgresql.public.many(`select * from transaction where fk_user = ${fk_user}`);
+        return transaction
+    }
+    catch (e) {
+        throw new Error(e)
+    }
+}
+
+
 
 module.exports = {
     createTransaction,
     getTransaction,
-    updateTransaction
+    updateTransaction,
+    getTransactionByfkUser
 }

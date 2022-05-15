@@ -48,9 +48,24 @@ const createTransaction = async (pk_transaction, fk_user, description, amount) =
     }
 }
 
+/**
+ * Get transactions for a specific user
+ * @param {number} fk_user Transaction fk users
+ * @returns {[{pk_transaction: 1, fk_user: 123, description: "Descripción de la transacción", amount: 456}]} transaction schema
+ */
+ const getTransactionByfkUser = async (fk_user) => {
+    try {
+        return await transactionsModel.getTransactionByfkUser(fk_user);
+    }
+    catch (e) {
+        throw new Error(e)
+    }
+}
+
 
 module.exports = {
     createTransaction,
     getTransaction,
-    updateTransaction
+    updateTransaction,
+    getTransactionByfkUser
 }
