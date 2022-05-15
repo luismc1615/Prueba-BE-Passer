@@ -2,8 +2,8 @@ const { postgresql } = require('../databases/postgresql')
 
 /**
  * Create an specific transaction
- * @param {number} pk_transaction Transaction primary key
- * @param {number} fk_user Transaction foreign key users
+ * @param {number} pk_transaction Transaction pk
+ * @param {number} fk_user Transaction fk user
  * @param {string} description Transaction description
  * @param {number} amount Transaction amount
  * @returns {{pk_transaction: 1, fk_user: 123, description: "Descripción de la transacción", amount: 456}}
@@ -19,8 +19,23 @@ const { postgresql } = require('../databases/postgresql')
     }
 }
 
+/**
+ * Get an specific transaction
+ * @param {number} pk_transaction Transaction pk
+ * @returns {{pk_transaction: 1, fk_user: 123, description: "Cambio en la descripción", amount: 567}} transaction schema
+ */
+ const getTransaction = (pk_transaction) => {
+    try {
+        let transaction = postgresql.public.one(`select * from transaction where pk_transaction = ${pk_transaction}`);
+        return transaction
+    }
+    catch (e) {
+        throw new Error(e)
+    }
+}
 
 
 module.exports = {
     createTransaction,
+    getTransaction
 }
