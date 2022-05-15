@@ -22,7 +22,7 @@ const { postgresql } = require('../databases/postgresql')
 /**
  * Get an specific transaction
  * @param {number} pk_transaction Transaction pk
- * @returns {{pk_transaction: 1, fk_user: 123, description: "Cambio en la descripción", amount: 567}} transaction schema
+ * @returns {{pk_transaction: 1, fk_user: 123, description: "Descripción de la transacción", amount: 456}} transaction schema
  */
  const getTransaction = (pk_transaction) => {
     try {
@@ -34,8 +34,29 @@ const { postgresql } = require('../databases/postgresql')
     }
 }
 
+/**
+ * Update an specific transaction
+ * @param {number} pk_transaction Transaction pk
+ * @param {number} fk_user Transaction fk users
+ * @param {string} description Transaction description
+ * @param {number} amount Transaction amount
+ * @returns {{pk_transaction: 1, fk_user:123, description:"Cambio en la descripción", amount: 567}}
+ */
+ const updateTransaction = (pk_transaction, fk_user, description, amount) => {
+    try {
+        let transaction = postgresql.public.one(`update transaction set fk_user='${fk_user}', 
+                                                 description = '${description}',amount= '${amount}' 
+                                                 where pk_transaction='${pk_transaction}' returning *;`);
+        return transaction
+    }
+    catch (e) {
+        throw new Error(e)
+    }
+}
+
 
 module.exports = {
     createTransaction,
-    getTransaction
+    getTransaction,
+    updateTransaction
 }

@@ -10,5 +10,6 @@ router.get('/users/:pk_user', users.getUser)
     .delete('/users/:pk_user', users.deleteUser)
     .post('/transaction/', transaction.createTransaction)
     .get('/transaction/:pk_transaction', transaction.getTransaction)
+    .put('/transaction/:pk_transaction', transaction.updateTransaction)
 
 module.exports = router
